@@ -117,9 +117,10 @@ ${englishTextSvg}
   .png()
   .toBuffer();
 
-  return new Response(buffer, {
-    headers: {
-      "Content-Type": "image/png",
-    },
-  });
+ return new Response(new Uint8Array(buffer), {
+  headers: {
+    "Content-Type": "image/png",
+    "Cache-Control": "no-store",
+  },
+});
 }
