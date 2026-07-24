@@ -73,37 +73,23 @@ const englishTextSvg = englishLines
   )
   .join("");
 const svg = `
-<svg
-  xmlns="http://www.w3.org/2000/svg"
-  width="${width}"
-  height="${height}"
->
+<svg xmlns="http://www.w3.org/2000/svg" width="937" height="1678">
+  <rect width="100%" height="100%" fill="red"/>
   <text
-    x="${centerX}"
+    x="468"
     y="300"
-    text-anchor="middle"
     fill="white"
-    font-size="80"
+    font-size="100"
+    text-anchor="middle"
   >
     TEST
   </text>
 </svg>
 `;
-const buffer = await sharp(imageBuffer)
-  .composite([
-    {
-      input: Buffer.from(svg, "utf-8"),
-      top: 0,
-      left: 0,
-    },
-  ])
-  .png()
-  .toBuffer();
 
-return new Response(new Uint8Array(buffer), {
+return new Response(svg, {
   headers: {
-    "Content-Type": "image/png",
-    "Cache-Control": "no-store",
+    "Content-Type": "image/svg+xml",
   },
 });
 }
