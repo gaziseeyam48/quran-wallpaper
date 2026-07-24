@@ -73,9 +73,19 @@ const englishTextSvg = englishLines
   )
   .join("");
 const svg = `
-<svg xmlns="http://www.w3.org/2000/svg" width="937" height="1678">
-  <rect width="100%" height="100%" fill="red"/>
-  <circle cx="468" cy="300" r="100" fill="white"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">
+  <foreignObject width="100%" height="100%">
+    <div xmlns="http://www.w3.org/1999/xhtml"
+      style="
+        color:white;
+        font-size:48px;
+        font-family:Arial,sans-serif;
+        text-align:center;
+        margin-top:300px;
+      ">
+      TEST
+    </div>
+  </foreignObject>
 </svg>
 `;
 const svgBuffer = await sharp(
