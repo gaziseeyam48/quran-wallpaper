@@ -86,10 +86,15 @@ const svg = `
   </text>
 </svg>
 `;
+const svgBuffer = await sharp(
+  Buffer.from(svg)
+)
+.png()
+.toBuffer();
 
-return new Response(svg, {
+return new Response(new Uint8Array(svgBuffer), {
   headers: {
-    "Content-Type": "image/svg+xml",
+    "Content-Type": "image/png",
   },
 });
 }
