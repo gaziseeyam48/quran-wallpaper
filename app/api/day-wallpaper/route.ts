@@ -72,44 +72,17 @@ const englishTextSvg = englishLines
     `
   )
   .join("");
-  const svg = `
+const svg = `
 <svg width="${width}" height="${height}">
-  <style>
-    .arabic {
-      fill: white;
-      font-size: 56px;
-      font-family: serif;
-      font-weight: 600;
-    }
-
-    .english {
-      fill: white;
-      font-size:48px;
-    font-weight: 600;
-      font-family: Arial, sans-serif;
-    }
-
-    .reference {
-      fill: rgba(255,255,255,0.85);
-      font-size: 28px;
-      font-family: Arial, sans-serif;
-    }
-
-    .shadow {
-      filter: drop-shadow(0px 4px 10px rgba(0,0,0,0.8));
-    }
-  </style>
-
-${englishTextSvg}
-
-<text
-  x="${centerX}"
-  y="${Math.floor(height * 0.30) + englishLines.length * 60 + 40}"
-  text-anchor="middle"
-  class="reference shadow"
->
-  — ${english.surah.englishName} ${english.numberInSurah} —
-</text>
+  <text
+    x="${centerX}"
+    y="300"
+    text-anchor="middle"
+    fill="white"
+    font-size="80"
+  >
+    TEST
+  </text>
 </svg>
 `;
 
