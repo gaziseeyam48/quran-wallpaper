@@ -113,11 +113,18 @@ ${englishTextSvg}
 </svg>
 `;
 
- const buffer = await sharp(imageBuffer)
+const buffer = await sharp(imageBuffer)
+  .composite([
+    {
+      input: Buffer.from(svg),
+      top: 0,
+      left: 0,
+    },
+  ])
   .png()
   .toBuffer();
 
- return new Response(new Uint8Array(buffer), {
+return new Response(new Uint8Array(buffer), {
   headers: {
     "Content-Type": "image/png",
     "Cache-Control": "no-store",
