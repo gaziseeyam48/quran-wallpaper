@@ -113,16 +113,9 @@ ${englishTextSvg}
 </svg>
 `;
 
-  const buffer = await sharp(imageBuffer)
-    .composite([
-      {
-        input: Buffer.from(svg),
-        top: 0,
-        left: 0,
-      },
-    ])
-    .png()
-    .toBuffer();
+ const buffer = await sharp(imageBuffer)
+  .png()
+  .toBuffer();
 
   return new Response(buffer, {
     headers: {
