@@ -3,6 +3,13 @@ import { ImageResponse } from "@vercel/og";
 export const runtime = "edge";
 
 export async function GET() {
+  const response = await fetch(
+  "https://api.alquran.cloud/v1/ayah/931/editions/quran-uthmani,en.sahih"
+);
+
+const data = await response.json();
+
+const english = data.data[1];
   return new ImageResponse(
     (
      <div
@@ -34,7 +41,7 @@ export async function GET() {
     fontSize: 60,
   }}
 >
-  TEST
+  {english.text}
 </div>
 </div>
     ),
