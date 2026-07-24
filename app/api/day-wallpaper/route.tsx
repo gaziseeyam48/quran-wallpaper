@@ -23,18 +23,19 @@ export async function GET() {
     }}
   />
 
-  <div
-    style={{
-      position: "absolute",
-      width: "100%",
-      top: 450,
-      color: "white",
-      textAlign: "center",
-      fontSize: 60,
-    }}
-  >
-    TEST
-  </div>
+<div
+  style={{
+    position: "absolute",
+    width: "100%",
+    top: 450,
+    display: "flex",
+    justifyContent: "center",
+    color: "white",
+    fontSize: 60,
+  }}
+>
+  TEST
+</div>
 </div>
     ),
     {
