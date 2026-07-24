@@ -42,29 +42,31 @@ const english = data.data[1];
     paddingRight: 80,
   }}
 >
-  <div
-    style={{
-      color: "white",
-      fontSize: 42,
-      textAlign: "center",
-      lineHeight: 1.4,
-      textShadow: "0 4px 12px rgba(0,0,0,0.7)",
-      maxWidth: 760,
-    }}
-  >
-    {english.text}
-  </div>
+ <div
+  style={{
+    display: "flex",
+    color: "white",
+    fontSize: 42,
+    textAlign: "center",
+    lineHeight: 1.4,
+    textShadow: "0 4px 12px rgba(0,0,0,0.7)",
+    maxWidth: 760,
+  }}
+>
+  {english.text}
+</div>
 
-  <div
-    style={{
-      marginTop: 30,
-      color: "rgba(255,255,255,0.8)",
-      fontSize: 24,
-      textAlign: "center",
-    }}
-  >
-    — {english.surah.englishName} {english.numberInSurah} —
-  </div>
+ <div
+  style={{
+    display: "flex",
+    marginTop: 30,
+    color: "rgba(255,255,255,0.8)",
+    fontSize: 24,
+    textAlign: "center",
+  }}
+>
+  — {english.surah.englishName} {english.numberInSurah} —
+</div>
 </div>
 </div>
     ),
