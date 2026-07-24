@@ -73,7 +73,11 @@ const englishTextSvg = englishLines
   )
   .join("");
 const svg = `
-<svg width="${width}" height="${height}">
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="${width}"
+  height="${height}"
+>
   <text
     x="${centerX}"
     y="300"
@@ -85,11 +89,10 @@ const svg = `
   </text>
 </svg>
 `;
-
 const buffer = await sharp(imageBuffer)
   .composite([
     {
-      input: Buffer.from(svg),
+      input: Buffer.from(svg, "utf-8"),
       top: 0,
       left: 0,
     },
