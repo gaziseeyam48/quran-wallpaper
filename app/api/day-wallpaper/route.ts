@@ -75,15 +75,7 @@ const englishTextSvg = englishLines
 const svg = `
 <svg xmlns="http://www.w3.org/2000/svg" width="937" height="1678">
   <rect width="100%" height="100%" fill="red"/>
-  <text
-    x="468"
-    y="300"
-    fill="white"
-    font-size="100"
-    text-anchor="middle"
-  >
-    TEST
-  </text>
+  <circle cx="468" cy="300" r="100" fill="white"/>
 </svg>
 `;
 const svgBuffer = await sharp(
