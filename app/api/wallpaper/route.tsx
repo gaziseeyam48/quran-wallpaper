@@ -1,18 +1,31 @@
 import { ImageResponse } from "@vercel/og";
+import { devices, wallpaperCollections } from "../../wallpaper-options";
 
 export const runtime = "edge";
 
 export async function GET(request: Request) {
-  const mode = new URL(request.url).searchParams.get("mode");
+  const { searchParams } = new URL(request.url);
+  const mode = searchParams.get("mode");
+  const requestedDevice = searchParams.get("device");
+  const requestedCollection = searchParams.get("collection");
   const hour = getBangladeshHour();
+  const device = devices.find((item) => item.id === requestedDevice) ?? devices[0];
 
   // A Shortcut can explicitly choose the image using ?mode=day or ?mode=night.
   // Without that parameter, follow Bangladesh local time (06:00–17:59 is day).
   const isDay = mode === "day" || (mode !== "night" && hour >= 6 && hour < 18);
 
-  const wallpaperUrl = isDay
-    ? "https://quran-wallpaper.vercel.app/day.png"
-    : "https://quran-wallpaper.vercel.app/night.png";
+  const collection =
+    wallpaperCollections.find((item) => item.id === requestedCollection) ??
+    wallpaperCollections[0];
+
+  if (!collection) {
+    return new Response("No wallpaper collections are configured.", { status: 500 });
+  }
+
+  const wallpaperPath = isDay ? collection.dayPath : collection.nightPath;
+  const wallpaperUrl = new URL(wallpaperPath, request.url).toString();
+  const scale = device.width / 937;
 
   const ayahNumber = getDailyAyahNumber();
 
@@ -54,19 +67,19 @@ export async function GET(request: Request) {
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
-            paddingLeft: 80,
-            paddingRight: 80,
+            paddingLeft: 80 * scale,
+            paddingRight: 80 * scale,
           }}
         >
           <div
             style={{
               display: "flex",
               color: "white",
-              fontSize: 34,
+              fontSize: 34 * scale,
               textAlign: "center",
               lineHeight: 1.4,
               textShadow: "0 4px 12px rgba(0,0,0,0.7)",
-              maxWidth: 700,
+              maxWidth: 700 * scale,
             }}
           >
             {english.text}
@@ -75,9 +88,9 @@ export async function GET(request: Request) {
           <div
             style={{
               display: "flex",
-              marginTop: 30,
+              marginTop: 30 * scale,
               color: "rgba(255,255,255,0.8)",
-              fontSize: 24,
+              fontSize: 24 * scale,
               textAlign: "center",
             }}
           >
@@ -87,8 +100,8 @@ export async function GET(request: Request) {
       </div>
     ),
     {
-      width: 937,
-      height: 1678,
+      width: device.width,
+      height: device.height,
       headers: {
         // The image changes during the day, so never let the phone or a CDN reuse
         // an older response for this URL.
