@@ -15,12 +15,6 @@ export type WallpaperCollection = {
 // Add device output sizes here as the collection grows. Background masters are
 // shared by every device and cropped with `objectFit: "cover"` at render time.
 export const devices: Device[] = [
-  {
-    id: "android-1440x3200",
-    name: "Android (1440 × 3200)",
-    width: 1440,
-    height: 3200,
-  },
   { id: "iphone-11", name: "iPhone 11", width: 828, height: 1792 },
   { id: "iphone-11-pro", name: "iPhone 11 Pro", width: 1125, height: 2436 },
   { id: "iphone-11-pro-max", name: "iPhone 11 Pro Max", width: 1242, height: 2688 },
