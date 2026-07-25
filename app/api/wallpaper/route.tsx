@@ -2,10 +2,13 @@ import { ImageResponse } from "@vercel/og";
 
 export const runtime = "edge";
 
-export async function GET() {
-  const hour = new Date().getHours();
+export async function GET(request: Request) {
+  const mode = new URL(request.url).searchParams.get("mode");
+  const hour = getBangladeshHour();
 
-  const isDay = hour >= 6 && hour < 18;
+  // A Shortcut can explicitly choose the image using ?mode=day or ?mode=night.
+  // Without that parameter, follow Bangladesh local time (06:00–17:59 is day).
+  const isDay = mode === "day" || (mode !== "night" && hour >= 6 && hour < 18);
 
   const wallpaperUrl = isDay
     ? "https://quran-wallpaper.vercel.app/day.png"
@@ -44,11 +47,13 @@ export async function GET() {
         <div
           style={{
             position: "absolute",
-            top: 260,
+            top: 0,
+            bottom: 0,
             width: "100%",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+            justifyContent: "center",
             paddingLeft: 80,
             paddingRight: 80,
           }}
@@ -84,8 +89,23 @@ export async function GET() {
     {
       width: 937,
       height: 1678,
+      headers: {
+        // The image changes during the day, so never let the phone or a CDN reuse
+        // an older response for this URL.
+        "Cache-Control": "no-store, max-age=0",
+      },
     }
   );
+}
+
+function getBangladeshHour() {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: "Asia/Dhaka",
+    hour: "2-digit",
+    hourCycle: "h23",
+  }).formatToParts(new Date());
+
+  return Number(parts.find((part) => part.type === "hour")?.value);
 }
 
 function getDailyAyahNumber() {
